@@ -16,12 +16,14 @@ import { commonMessages, sectionNames } from "@dashboard/intl";
 import { orderDraftListUrl, orderListUrl } from "@dashboard/orders/urls";
 import { pageListPath } from "@dashboard/pages/urls";
 import { productListUrl } from "@dashboard/products/urls";
+import { ProvincesSectionPath } from "@dashboard/provinces/urls";
 import { languageListUrl } from "@dashboard/translations/urls";
 import {
   ConfigurationIcon,
   CustomersIcon,
   HomeIcon,
   MarketplaceIcon,
+  MoreOptionsIcon,
   OrdersIcon,
   ProductsIcons,
   StorefrontIcon,
@@ -127,6 +129,14 @@ export function useMenuStructure() {
       id: "orders",
       url: orderListUrl(),
       type: "itemGroup",
+    },
+    {
+      icon: <MoreOptionsIcon {...iconSettings} />,
+      label: intl.formatMessage(commonMessages.provinces),
+      permissions: [],
+      url: ProvincesSectionPath,
+      id: "provinces",
+      type: "item",
     },
     {
       children: !isEmpty(extensions.NAVIGATION_CUSTOMERS) && [

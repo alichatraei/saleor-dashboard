@@ -26,6 +26,11 @@ export const commonMessages = defineMessages({
     id: "hzSNj4",
     defaultMessage: "Dashboard",
   },
+  provinces: {
+    defaultMessage: "Provinces",
+    description: "sh",
+    id: "LPISwk",
+  },
   demo: {
     id: "i0AcKY",
     defaultMessage:
@@ -469,6 +474,11 @@ export const sectionNames = defineMessages({
     id: "H6NsC1",
     defaultMessage: "Pages",
     description: "pages section name",
+  },
+  provinces: {
+    id: "XMxpgB",
+    defaultMessage: "Provinces",
+    description: "Provinces section name",
   },
   content: {
     id: "NelCIl",

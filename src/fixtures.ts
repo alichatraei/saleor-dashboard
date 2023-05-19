@@ -501,6 +501,11 @@ export const adminUserPermissions: UserDetailsQuery["me"]["userPermissions"] = [
     code: PermissionEnum.MANAGE_USERS,
     name: "Manage customers.",
   },
+  {
+    __typename: "UserPermission",
+    code: PermissionEnum.MANAGE_PROVINCES,
+    name: "Manage provinces",
+  },
 ];
 
 export const address = {
