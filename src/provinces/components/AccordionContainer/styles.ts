@@ -1,28 +1,56 @@
+import { Box } from "@material-ui/core";
 import MuiAccordion from "@material-ui/core/Accordion";
 import MuiAccordionDetails from "@material-ui/core/AccordionDetails";
 import MuiAccordionSummary from "@material-ui/core/AccordionSummary";
 import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/styles";
+const useStyles = makeStyles(
+  {
+    search__textfield__styles: {
+      width: "80%",
+      margin: "1rem auto",
+    },
+    province_name_typography_styles: {
+      paddingRight: "5rem",
+    },
+    icon_button: {
+      backgroundColor: "transparent",
+      color: "black",
+      border: "none",
+      marginRight: "1rem",
+      borderRadius: "1rem",
+      height: "50%",
+    },
+  },
+  { name: "styles" },
+);
+const CustomBox = withStyles(
+  {
+    root: {
+      margin: "1rem",
+      display: "flex",
+      flexDirection: "column",
+    },
+    content: {},
+  },
+  { name: "styles" },
+)(Box);
+
 const CustomAccordion = withStyles(
   {
     root: {
-      dir: "rtl",
+      direction: "rtl",
       border: "1px solid rgba(0, 0, 0, .125)",
       boxShadow: "none",
+      margin: "0 !important",
       "&:not(:last-child)": {
         borderBottom: 0,
       },
       "&:hover": {
         cursor: "pointer",
       },
-      "&:before": {
-        display: "none",
-      },
       "&$expanded": {
-        margin: "auto",
-        backgroundColor: "#ccc",
-      },
-      "&: expandIcon": {
-        backgroundColor: "transparent !important",
+        backgroundColor: "#f2f2f2",
       },
     },
     expanded: {},
@@ -35,18 +63,24 @@ const CustomAccordionSummary = withStyles(
     root: {
       backgroundColor: "rgba(0, 0, 0, .03)",
       borderBottom: "1px solid rgba(0, 0, 0, .125)",
-      marginBottom: -1,
-      minHeight: 56,
-      "&$expanded": {
-        minHeight: 56,
-      },
+      boxSizing: "border-box",
+    },
+    expandIcon: {
+      backgroundColor: "transparent",
+      border: "none",
+      color: "black",
     },
     content: {
-      "&$expanded": {
-        margin: "12px 0",
-      },
+      padding: "1rem",
+      display: "flex",
+      alignItems: "center",
+      minHeight: "7rem",
+      margin: "0",
     },
-    expanded: {},
+
+    expanded: {
+      margin: "0 !important",
+    },
   },
   { name: "AccordionContainer" },
 )(MuiAccordionSummary);
@@ -60,4 +94,10 @@ const CustomAccordionDetails = withStyles(
   { name: "AccordionContainer" },
 )(MuiAccordionDetails);
 
-export { CustomAccordion, CustomAccordionDetails, CustomAccordionSummary };
+export {
+  CustomAccordion,
+  CustomAccordionDetails,
+  CustomAccordionSummary,
+  CustomBox,
+  useStyles,
+};
