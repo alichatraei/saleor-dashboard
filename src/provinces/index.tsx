@@ -14,6 +14,7 @@ const ProvincesSection: React.FC<{}> = () => {
       <ProvinceProvider
         provinces={provincesList}
         filteredProvinces={provincesList}
+        cityIdSelected={0}
       >
         <>
           <WindowTitle title={intl.formatMessage(sectionNames.provinces)} />

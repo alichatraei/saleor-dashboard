@@ -4,10 +4,10 @@ import IProvinces from "./IProvinces";
 interface IState {
   provinces: IProvinces[];
   filteredProvinces: IProvinces[];
-  provinceIdSelected: number;
-  cityIdSelected: number;
-  getProvince: IProvinces;
-  getCity: TProvinceCities;
+  provinceIdSelected?: number;
+  cityIdSelected?: number;
+  getProvince?: IProvinces;
+  getCity?: TProvinceCities;
 }
 
 export default IState;
