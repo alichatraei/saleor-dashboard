@@ -1,4 +1,4 @@
-import { useProvinceContext } from "@dashboard/provinces/context/provincesContext";
+import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
 import { Box, TextField } from "@material-ui/core";
 import { Button } from "@saleor/macaw-ui";
 import React, { ChangeEvent, useState } from "react";
@@ -9,20 +9,19 @@ import useStyles from "./styles";
 interface IAddModalProps {
   open: boolean;
   closeFn: () => void;
-  provinceId?: number;
 }
 
 const AddModal = (props: IAddModalProps) => {
-  const { open, closeFn, provinceId } = props;
+  const { open, closeFn } = props;
   const classes = useStyles();
-  const { addNewCity } = useProvinceContext();
+  const { addNewCityDispatch, provinceIdSelected } = useProvinceContext();
   const [cityName, setCityName] = useState<string>("");
   const [priority, setPriority] = useState<string>("");
 
   const handleSave = () => {
-    if (provinceId) {
-      addNewCity({
-        province_id: provinceId,
+    if (provinceIdSelected) {
+      addNewCityDispatch({
+        province_id: provinceIdSelected,
         city_name: cityName,
         city_priority: +priority,
       });

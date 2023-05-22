@@ -1,5 +1,5 @@
 type TProvinceCities ={
-  city_id: string;
+  city_id: number;
   city_name: string;
   city_priority: number;
 }

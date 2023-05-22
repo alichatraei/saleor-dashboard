@@ -6,30 +6,33 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import ModalRender from "../ModalRender/ModalRender";
 import useStyles from "./styles";
 
-interface IEditModalProps {
+interface IEditProvinceModalProps {
   open: boolean;
   closeFn: () => void;
-  province_id?: number;
-  city_id?: number;
 }
 
-const EditModal = ({ open, closeFn }: IEditModalProps) => {
+const EditProvinceModal = ({ open, closeFn }: IEditProvinceModalProps) => {
   const classes = useStyles();
-  const { editCityDispatch, getCity } = useProvinceContext();
+  const { editProvinceDispatch, provinceIdSelected, getProvince } =
+    useProvinceContext();
   const [editName, setEditName] = useState<string>("");
   const [editPriority, setEditPriority] = useState<string>("");
 
   const handleEditButton = () => {
-    editCityDispatch({ city_name: editName, city_priority: editPriority });
+    editProvinceDispatch({
+      province_id: provinceIdSelected,
+      province_name: editName,
+      province_priority: +editPriority,
+    });
     closeFn();
   };
 
   useEffect(() => {
-    if (getCity) {
-      setEditName(getCity.city_name);
-      setEditPriority(String(getCity.city_priority));
+    if (getProvince) {
+      setEditName(getProvince.province_name);
+      setEditPriority(String(getProvince.province_priority));
     }
-  }, [getCity]);
+  }, [getProvince]);
 
   return (
     <ModalRender open={open} closeFn={closeFn}>
@@ -69,4 +72,4 @@ const EditModal = ({ open, closeFn }: IEditModalProps) => {
   );
 };
 
-export default EditModal;
+export default EditProvinceModal;

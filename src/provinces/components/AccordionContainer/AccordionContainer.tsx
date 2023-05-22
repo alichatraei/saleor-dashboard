@@ -1,9 +1,9 @@
-import { useProvinceContext } from "@dashboard/provinces/context/provincesContext";
+import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
 import IProvinces from "@dashboard/provinces/interfaces/IProvinces";
 import { Box, IconButton, TextField, Typography } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import AccordionDetailsChildren from "../AccordionDetailsChildren/AccordionDetailsChildren";
 import ModalManager from "../ModalManager/ModalManager";
@@ -27,28 +27,44 @@ const AccordionContainer = ({
   setIsShowAddModal,
 }: IAccordionContainer) => {
   const classes = useStyles();
-  const { provinces } = useProvinceContext();
-  const [expanded, setExpanded] = useState<number>(1);
+  const [provincesState, setProvincesState] = useState<IProvinces[] | []>([]);
+  const {
+    filteredProvinces,
+    getProvinceDispatch,
+    setProvinceSelectedIdDispatch,
+    searchFilterDispatch,
+  } = useProvinceContext();
+
   const [showActionButtons, setShowActionButtons] = useState<number>(-1);
 
-  const handleChange = (newExpanded: number) => {
-    setExpanded(newExpanded);
-  };
+  useEffect(() => {
+    setProvinceSelectedIdDispatch(1);
+  }, []);
+
+  useEffect(() => {
+    setProvincesState(
+      filteredProvinces.sort(
+        (prev, current) => current.province_priority - prev.province_priority,
+      ),
+    );
+  }, [filteredProvinces]);
 
   return (
     <CustomBox>
       <TextField
         placeholder="Search..."
         size="small"
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          searchFilterDispatch(e.target.value);
+        }}
         className={classes.search__textfield__styles}
       />
-      {provinces.map((province: IProvinces, index: number) => (
+      {provincesState.map((province: IProvinces, index: number) => (
         <CustomAccordion
           key={province.province_id}
           square
-          expanded={expanded === province.province_id}
           onClick={() => {
-            handleChange(province.province_id);
+            setProvinceSelectedIdDispatch(province.province_id);
           }}
         >
           <CustomAccordionSummary
@@ -67,7 +83,8 @@ const AccordionContainer = ({
             <Box display={showActionButtons === index ? "block" : "none"}>
               <IconButton
                 onClick={() => {
-                  setIsShowAddModal("Edit");
+                  setIsShowAddModal("ProvinceEditModal");
+                  getProvinceDispatch(province.province_id);
                 }}
                 className={classes.icon_button}
               >
@@ -84,11 +101,7 @@ const AccordionContainer = ({
           </CustomAccordionDetails>
         </CustomAccordion>
       ))}
-      <ModalManager
-        modalName={isShowAddModal}
-        closeFn={handleCloseModal}
-        province_id={expanded}
-      />
+      <ModalManager modalName={isShowAddModal} closeFn={handleCloseModal} />
     </CustomBox>
   );
 };
