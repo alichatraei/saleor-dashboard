@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-imports */
-import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
+import useProvinceContext from "@dashboard/provinces/hooks/useProvinceContext";
 import TProvinceCities from "@dashboard/provinces/types/TProvinceCities";
 import { Box, IconButton, Typography } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -20,12 +20,19 @@ const AccordionDetailsChildren: React.FC = ({
   const { getCityDispatch, setCitySelectedIdDispatch } = useProvinceContext();
   const [provinceCitiesState, setProvinceCitiesState] =
     useState<TProvinceCities[]>(children);
-  const [modalName, setModalName] = useState<boolean | string>(false);
-  const [displayActionsButtons, setDisplayActionsButtons] =
-    useState<number>(-1);
+  const [showModal, setShowModal] = useState<boolean | string>(false);
+  const [displayActionButtons, setDisplayActionButtons] = useState<number>(-1);
 
   const closeModal = (): void => {
-    setModalName(false);
+    setShowModal(false);
+  };
+
+  const toggleShowActionButtons = (provinceIndex: number): void => {
+    setDisplayActionButtons(provinceIndex);
+  };
+
+  const openSpecificModal = (modalName: string): void => {
+    setShowModal(modalName);
   };
 
   useEffect(() => {
@@ -43,10 +50,10 @@ const AccordionDetailsChildren: React.FC = ({
             <Box
               className={classes.box}
               onMouseEnter={() => {
-                setDisplayActionsButtons(index);
+                toggleShowActionButtons(index);
               }}
               onMouseLeave={() => {
-                setDisplayActionsButtons(-1);
+                toggleShowActionButtons(-1);
               }}
             >
               <Box style={{ display: "flex" }}>
@@ -55,10 +62,10 @@ const AccordionDetailsChildren: React.FC = ({
                 </Typography>
                 <Typography>{city.city_name}</Typography>
               </Box>
-              <Box display={displayActionsButtons === index ? "block" : "none"}>
+              <Box display={displayActionButtons === index ? "block" : "none"}>
                 <IconButton
                   onClick={() => {
-                    setModalName("Edit");
+                    openSpecificModal("EditCityModal");
                     setCitySelectedIdDispatch(city.city_id);
                     getCityDispatch(city.city_id);
                   }}
@@ -68,7 +75,7 @@ const AccordionDetailsChildren: React.FC = ({
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    setModalName("Delete");
+                    openSpecificModal("DeleteCityModal");
                     setCitySelectedIdDispatch(city.city_id);
                     getCityDispatch(city.city_id);
                   }}
@@ -78,7 +85,7 @@ const AccordionDetailsChildren: React.FC = ({
                 </IconButton>
               </Box>
             </Box>
-            <ModalManager modalName={modalName} closeFn={closeModal} />
+            <ModalManager modalName={showModal} closeFn={closeModal} />
           </div>
         ),
       )}

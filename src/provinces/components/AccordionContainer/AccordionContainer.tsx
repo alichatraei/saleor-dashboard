@@ -1,4 +1,4 @@
-import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
+import useProvinceContext from "@dashboard/provinces/hooks/useProvinceContext";
 import IProvinces from "@dashboard/provinces/interfaces/IProvinces";
 import { Box, IconButton, TextField, Typography } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
@@ -16,15 +16,15 @@ import {
 } from "./styles";
 
 interface IAccordionContainer {
-  isShowAddModal: string | boolean;
+  showModal: string | boolean;
   handleCloseModal: () => void;
-  setIsShowAddModal: React.Dispatch<any>;
+  setShowModal: React.Dispatch<any>;
 }
 
 const AccordionContainer = ({
-  isShowAddModal,
+  showModal,
   handleCloseModal,
-  setIsShowAddModal,
+  setShowModal,
 }: IAccordionContainer) => {
   const classes = useStyles();
   const [provincesState, setProvincesState] = useState<IProvinces[] | []>([]);
@@ -35,7 +35,21 @@ const AccordionContainer = ({
     searchFilterDispatch,
   } = useProvinceContext();
 
-  const [showActionButtons, setShowActionButtons] = useState<number>(-1);
+  const [isShowActionButtons, setIsShowActionButtons] = useState<number>(-1);
+  const [expandedItemId, setExpandedItemId] = useState<number>(1);
+
+  const toggleExpandAccordion = (Id: number): void => {
+    setExpandedItemId(Id);
+    setProvinceSelectedIdDispatch(Id);
+  };
+
+  const toggleShowActionButtons = (provinceIndex: number): void => {
+    setIsShowActionButtons(provinceIndex);
+  };
+
+  const openSpecificModal = (modalName: string): void => {
+    setShowModal(modalName);
+  };
 
   useEffect(() => {
     setProvinceSelectedIdDispatch(1);
@@ -63,27 +77,28 @@ const AccordionContainer = ({
         <CustomAccordion
           key={province.province_id}
           square
+          expanded={expandedItemId === province.province_id}
           onClick={() => {
-            setProvinceSelectedIdDispatch(province.province_id);
+            toggleExpandAccordion(province.province_id);
           }}
         >
           <CustomAccordionSummary
             expandIcon={<ExpandMoreIcon />}
             onMouseEnter={() => {
-              setShowActionButtons(index);
+              toggleShowActionButtons(index);
             }}
             onMouseLeave={() => {
-              setShowActionButtons(-1);
+              toggleShowActionButtons(-1);
             }}
           >
             <Typography>{province.province_id}</Typography>
             <Typography className={classes.province_name_typography_styles}>
               {province.province_name}
             </Typography>
-            <Box display={showActionButtons === index ? "block" : "none"}>
+            <Box display={isShowActionButtons === index ? "block" : "none"}>
               <IconButton
                 onClick={() => {
-                  setIsShowAddModal("ProvinceEditModal");
+                  openSpecificModal("EditProvinceModal");
                   getProvinceDispatch(province.province_id);
                 }}
                 className={classes.icon_button}
@@ -101,7 +116,7 @@ const AccordionContainer = ({
           </CustomAccordionDetails>
         </CustomAccordion>
       ))}
-      <ModalManager modalName={isShowAddModal} closeFn={handleCloseModal} />
+      <ModalManager modalName={showModal} closeFn={handleCloseModal} />
     </CustomBox>
   );
 };

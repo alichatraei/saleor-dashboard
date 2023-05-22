@@ -1,17 +1,17 @@
-import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
+import useProvinceContext from "@dashboard/provinces/hooks/useProvinceContext";
 import { Box, Typography } from "@material-ui/core";
 import { Button } from "@saleor/macaw-ui";
 import React from "react";
 
-import ModalRender from "../ModalRender/ModalRender";
+import ModalWrapper from "../ModalWrapper/ModalWrapper";
 import useStyles from "./styles";
 
-interface IDeleteModalProps {
+interface IDeleteCityModalProps {
   open: boolean;
   closeFn: () => void;
 }
 
-const DeleteModal = ({ open, closeFn }: IDeleteModalProps) => {
+const DeleteCityModal = ({ open, closeFn }: IDeleteCityModalProps) => {
   const { getCity, deleteCityDispatch } = useProvinceContext();
   const classes = useStyles();
 
@@ -21,13 +21,17 @@ const DeleteModal = ({ open, closeFn }: IDeleteModalProps) => {
   };
 
   return (
-    <ModalRender open={open} closeFn={closeFn}>
+    <ModalWrapper open={open} closeFn={closeFn}>
       <div className={classes.paper}>
         <Box className={classes.modal_header}>
           <Typography variant="h6">Delete</Typography>
         </Box>
         <Typography variant="body2" className="paper_typography_styles">
-          Are You Sure You Want To Delete {getCity && getCity.city_name} ?
+          Are You Sure You Want To Delete{" "}
+          <Typography component="span" className="city_name_styles">
+            {getCity && getCity.city_name}
+          </Typography>
+          ?
         </Typography>
         <hr />
         <Box className={classes.buttons_wrapper}>
@@ -39,8 +43,8 @@ const DeleteModal = ({ open, closeFn }: IDeleteModalProps) => {
           </Button>
         </Box>
       </div>
-    </ModalRender>
+    </ModalWrapper>
   );
 };
 
-export default DeleteModal;
+export default DeleteCityModal;

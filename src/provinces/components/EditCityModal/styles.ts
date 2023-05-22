@@ -7,24 +7,13 @@ const useStyles = makeStyles(
       width: 600,
       backgroundColor: "#fff",
       bottom: "40%",
-      left: "25%",
-      "& > .paper_typography_styles": {
-        padding: "1rem",
-      },
-    },
-    modal_header: {
-      margin: "1rem",
+      left: "35%",
     },
     buttons_wrapper: {
       display: "flex",
       justifyContent: "flex-end",
       "& > .MuiButtonBase-root": {
         margin: "1rem",
-      },
-      "& > .buttons_wrapper_delete": {
-        backgroundColor: "#6b0036 !important",
-        color: "white",
-        border: "none",
       },
     },
     textfield_wrapper: {

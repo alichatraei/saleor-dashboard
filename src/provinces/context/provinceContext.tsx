@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { createContext, ReactElement, useReducer } from "react";
 
+import useDispatchFunction from "../hooks/useDispatchFunction";
 import IState from "../interfaces/IState";
 import provincesList from "../utils/provincesList";
-import useDispatchFunction from "./hooks/useDispatchFunction";
 import reducer from "./reducers";
 
 const initState: IState = {
