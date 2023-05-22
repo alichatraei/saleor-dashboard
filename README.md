@@ -1,7 +1,7 @@
 # Table of Contents
 
 - [General Information](#general-information)
-- [Capabilities & Features](#capabilities-&-features)
+- [Capabilities & Features](#capabilities--features)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
 - [Province Folder Structure](#province-folder-structure)
