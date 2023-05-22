@@ -101,6 +101,10 @@ const messages = defineMessages({
     id: "x/ZVlU",
     defaultMessage: "Product",
   },
+  createCity: {
+    id: "UVa2CV",
+    defaultMessage: "Create City",
+  },
 });
 
 export default messages;

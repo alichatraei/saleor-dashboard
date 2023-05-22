@@ -68,6 +68,7 @@ import PermissionGroupSection from "./permissionGroups";
 import PluginsSection from "./plugins";
 import ProductSection from "./products";
 import ProductTypesSection from "./productTypes";
+import ProvincesSection from "./provinces";
 import errorTracker from "./services/errorTracking";
 import ShippingSection from "./shipping";
 import SiteSettingsSection from "./siteSettings";
@@ -209,6 +210,11 @@ const Routes: React.FC = () => {
                 permissions={[PermissionEnum.MANAGE_DISCOUNTS]}
                 path="/discounts"
                 component={DiscountSection}
+              />
+              <SectionRoute
+                permissions={[PermissionEnum.MANAGE_APPS]}
+                path="/provinces"
+                component={ProvincesSection}
               />
               <SectionRoute
                 permissions={[PermissionEnum.MANAGE_PAGES]}
