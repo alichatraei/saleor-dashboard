@@ -4,10 +4,10 @@ import IProvinces from "./IProvinces";
 interface IUseProvinceHook {
   provinces: IProvinces[];
   filteredProvinces: IProvinces[];
-  provinceIdSelected: number;
-  cityIdSelected: number;
-  getProvince: IProvinces;
-  getCity: TProvinceCities;
+  provinceIdSelected?: number;
+  cityIdSelected?: number;
+  getProvince?: IProvinces;
+  getCity?: TProvinceCities;
   addNewCityDispatch: (payload: any) => void;
   deleteCityDispatch: (payload: number) => void;
   editProvinceDispatch: (payload: any) => void;
