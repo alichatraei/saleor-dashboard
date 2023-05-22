@@ -7,7 +7,7 @@ const useStyles = makeStyles(
       width: 600,
       backgroundColor: "#fff",
       bottom: "40%",
-      left: "25%",
+      left: "35%",
     },
     buttons_wrapper: {
       display: "flex",

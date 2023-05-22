@@ -1,7 +1,7 @@
 import IUseProvinceHook from "@dashboard/provinces/interfaces/IUseProvinceHook";
 import { useContext } from "react";
 
-import { ProvinceContext } from "../provinceContext";
+import { ProvinceContext } from "../context/provinceContext";
 
 const useProvinceContext = (): IUseProvinceHook => {
   const {

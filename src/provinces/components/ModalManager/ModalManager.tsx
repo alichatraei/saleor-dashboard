@@ -1,8 +1,8 @@
 import React from "react";
 
-import AddModal from "../AddModal/AddModal";
-import DeleteModal from "../DeleteModal/DeleteModal";
-import EditModal from "../EditModal/EditModal";
+import AddCityModal from "../AddCityModal/AddCityModal";
+import DeleteCityModal from "../DeleteCityModal/DeleteCityModal";
+import EditCityModal from "../EditCityModal/EditCityModal";
 import EditProvinceModal from "../EditProvinceModal/EditProvinceModal";
 
 interface IModalManagerProps {
@@ -10,19 +10,16 @@ interface IModalManagerProps {
   closeFn: () => void;
 }
 
-const ModalManager = (props: IModalManagerProps) => {
-  const { modalName, closeFn } = props;
-  return (
-    <>
-      <AddModal open={modalName === "Add"} closeFn={closeFn} />
-      <EditModal open={modalName === "Edit"} closeFn={closeFn} />
-      <DeleteModal open={modalName === "Delete"} closeFn={closeFn} />
-      <EditProvinceModal
-        open={modalName === "ProvinceEditModal"}
-        closeFn={closeFn}
-      />
-    </>
-  );
-};
+const ModalManager = ({ modalName, closeFn }: IModalManagerProps) => (
+  <>
+    <AddCityModal open={modalName === "AddCityModal"} closeFn={closeFn} />
+    <EditCityModal open={modalName === "EditCityModal"} closeFn={closeFn} />
+    <DeleteCityModal open={modalName === "DeleteCityModal"} closeFn={closeFn} />
+    <EditProvinceModal
+      open={modalName === "EditProvinceModal"}
+      closeFn={closeFn}
+    />
+  </>
+);
 
 export default ModalManager;

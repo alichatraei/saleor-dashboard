@@ -1,22 +1,42 @@
-import useProvinceContext from "@dashboard/provinces/context/hooks/useProvinceContext";
+import checkPriorityInput from "@dashboard/provinces/helpers/checkPriorityInput";
+import useProvinceContext from "@dashboard/provinces/hooks/useProvinceContext";
 import { Box, TextField } from "@material-ui/core";
 import { Button } from "@saleor/macaw-ui";
 import React, { ChangeEvent, useState } from "react";
 
-import ModalRender from "../ModalRender/ModalRender";
+import ModalWrapper from "../ModalWrapper/ModalWrapper";
 import useStyles from "./styles";
 
-interface IAddModalProps {
+interface IAddCityModalProps {
   open: boolean;
   closeFn: () => void;
 }
 
-const AddModal = (props: IAddModalProps) => {
+const AddCityModal = (props: IAddCityModalProps) => {
   const { open, closeFn } = props;
   const classes = useStyles();
   const { addNewCityDispatch, provinceIdSelected } = useProvinceContext();
   const [cityName, setCityName] = useState<string>("");
   const [priority, setPriority] = useState<string>("");
+
+  const handleChangeCityName = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    setCityName(value);
+  };
+
+  const handleChangePriority = ({
+    target: { value },
+  }: ChangeEvent<HTMLInputElement>) => {
+    if (value === "" || checkPriorityInput(value)) {
+      setPriority(value);
+    }
+  };
+
+  const resetForm = () => {
+    setCityName("");
+    setPriority("");
+  };
 
   const handleSave = () => {
     if (provinceIdSelected) {
@@ -25,30 +45,31 @@ const AddModal = (props: IAddModalProps) => {
         city_name: cityName,
         city_priority: +priority,
       });
+    } else {
+      alert("Something went wrong !!! Select a province to be added");
     }
+    resetForm();
     closeFn();
   };
 
   return (
-    <ModalRender open={open} closeFn={closeFn}>
+    <ModalWrapper open={open} closeFn={closeFn}>
       <div className={classes.paper}>
         <Box className={classes.textfield_wrapper}>
           <TextField
             className="textfield"
             label="Name"
             variant="outlined"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setCityName(e.target.value);
-            }}
+            value={cityName}
+            onChange={handleChangeCityName}
             fullWidth
           />
           <TextField
             className="textfield"
             label="Priority"
             variant="outlined"
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              setPriority(e.target.value);
-            }}
+            value={priority}
+            onChange={handleChangePriority}
           />
         </Box>
         <hr />
@@ -61,8 +82,8 @@ const AddModal = (props: IAddModalProps) => {
           </Button>
         </Box>
       </div>
-    </ModalRender>
+    </ModalWrapper>
   );
 };
 
-export default AddModal;
+export default AddCityModal;

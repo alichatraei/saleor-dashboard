@@ -8,10 +8,14 @@ import { FormattedMessage, useIntl } from "react-intl";
 import AccordionContainer from "../AccordionContainer/AccordionContainer";
 const ProvincesListPage = () => {
   const intl = useIntl();
-  const [isShowAddModal, setIsShowAddModal] = useState<any>(false);
+  const [showModal, setShowModal] = useState<string | boolean>(false);
 
   const handleCloseModal = () => {
-    setIsShowAddModal(false);
+    setShowModal(false);
+  };
+
+  const openSpecificModal = (modalName: string): void => {
+    setShowModal(modalName);
   };
 
   return (
@@ -19,7 +23,7 @@ const ProvincesListPage = () => {
       <TopNav title={intl.formatMessage(sectionNames.provinces)}>
         <Button
           onClick={() => {
-            setIsShowAddModal("Add");
+            openSpecificModal("AddCityModal");
           }}
           variant="primary"
         >
@@ -31,8 +35,8 @@ const ProvincesListPage = () => {
         </Button>
       </TopNav>
       <AccordionContainer
-        isShowAddModal={isShowAddModal}
-        setIsShowAddModal={setIsShowAddModal}
+        showModal={showModal}
+        setShowModal={setShowModal}
         handleCloseModal={handleCloseModal}
       />
     </ListPageLayout>
