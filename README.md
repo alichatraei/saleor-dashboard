@@ -1,10 +1,10 @@
 # Table of Contents
 
-- [General Information](#general-info)
-- [Capabilities & Features](#capabilities-features)
+- [General Information](#general-information)
+- [Capabilities & Features](#capabilities-&-features)
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
-- [Province Folder Structure](#folder-structure)
+- [Province Folder Structure](#province-folder-structure)
 
 ## General Information
 
